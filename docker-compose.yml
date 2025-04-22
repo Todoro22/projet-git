@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  git-server:
+    build: .
+    container_name: serveur-git
+    ports:
+      - "2222:22"
+    volumes:
+      - git-data:/git
+
+  git-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: git-client
+    depends_on:
+      - git-server
+
+volumes:
+  git-data:
